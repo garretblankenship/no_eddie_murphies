@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 for i in 1..40
     Actor.create(
         name: Faker::Name.name,
@@ -32,7 +25,11 @@ for i in 1..20
     
     for y in movie_actors
         actor = Actor.find(y)
-        m.actors.push(actor)
+        ActorsMovie.create(
+            movie_id: m.id, 
+            actor_id: actor.id, 
+            character: Faker::Superhero.name
+        )
         puts "Actor #{actor.name} on movie #{m.title}"
     end
 end
