@@ -11,7 +11,12 @@ for i in 1..40
         birthdate: Faker::Date.birthday(min_age: 12, max_age: 70),
         nationality: Faker::Nation.nationality
     )
+
+    puts "Created #{i} actors"
 end
+
+actor_ids = Actor.pluck(:id)
+puts "Grabbed actor ids"
 
 for i in 1..20
     m = Movie.create(
@@ -20,4 +25,14 @@ for i in 1..20
         description: Faker::Lorem.paragraph,
         image: Faker::LoremPixel.image
     )
+
+    puts "Created movie #{m.title}"
+
+    movie_actors = actor_ids.sample(rand(1..5))
+    
+    for y in movie_actors
+        actor = Actor.find(y)
+        m.actors.push(actor)
+        puts "Actor #{actor.name} on movie #{m.title}"
+    end
 end
